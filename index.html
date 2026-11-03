@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paulo Coura</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Paulo Coura, desenvolvimento full stack e gestão de projetos no setor público. Laravel, React, TypeScript, C#/.NET, PostgreSQL e Docker.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paulocoura-dev.github.io/">
+<meta property="og:title" content="Paulo Coura · Desenvolvimento full stack e gestão de projetos">
+<meta property="og:description" content="Principal desenvolvedor do SAPIENS, sistema da Secretaria da Saúde do ES. Laravel, React, TypeScript, C#/.NET, PostgreSQL e Docker.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23141922'/%3E%3Ctext x='14' y='24' font-family='Arial,sans-serif' font-weight='900' font-size='21' text-anchor='middle' fill='%23ECEEE9'%3EP%3C/text%3E%3Ccircle cx='25' cy='22' r='3' fill='%23BF2A45'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: o portfólio é um processo em tramitação. Cada seção é uma folha (fls.) do dossiê, com carimbos e despacho no fim. */
+:root {
+  --paper: #ECEEE9;
+  --sheet: #F8F9F6;
+  --ink: #141922;
+  --muted: #586070;
+  --line: #D1D5CC;
+  --pen: #1F3FBF;
+  --stamp: #BF2A45;
+  --ok: #1D7650;
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --f-sign: "Mrs Saint Delafield", "Brush Script MT", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C1017; --sheet: #141A24; --ink: #E5E8EE; --muted: #99A1AF;
+    --line: #273040; --pen: #8299FF; --stamp: #FF6F84; --ok: #52C892;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0C1017; --sheet: #141A24; --ink: #E5E8EE; --muted: #99A1AF;
+  --line: #273040; --pen: #8299FF; --stamp: #FF6F84; --ok: #52C892;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--paper);
+}
+a { color: var(--pen); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.mono { font-family: var(--f-mono); font-size: .8125rem; letter-spacing: .02em; }
+.label { font-family: var(--f-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+
+/* ---------- topo ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.top nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 28px); flex-wrap: wrap; }
+.top nav a { color: var(--ink); text-decoration: none; font-size: .9rem; }
+.top nav a:hover { color: var(--pen); }
+.brand { font-family: var(--f-mono); font-weight: 500; font-size: .85rem; color: var(--ink); text-decoration: none; }
+.brand span { color: var(--stamp); }
+.idioma { display: inline-flex; border: 1px solid var(--line); border-radius: 2px; }
+.idioma button {
+  font: 500 .75rem/1 var(--f-mono); letter-spacing: .06em; padding: 6px 8px; cursor: pointer;
+  background: none; border: 0; color: var(--muted);
+}
+.idioma button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* ---------- folhas ---------- */
+.folha { padding-block: clamp(56px, 9vw, 112px); border-bottom: 1px solid var(--line); }
+.folha-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: clamp(28px, 5vw, 48px); flex-wrap: wrap; }
+.folha-head h2 {
+  font: 800 clamp(2rem, 5vw, 3.25rem)/1 var(--f-display);
+  font-variation-settings: "wdth" 112; letter-spacing: -.01em;
+}
+.fls { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); white-space: nowrap; }
+.fls b { color: var(--stamp); font-weight: 500; }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(40px, 7vw, 88px) clamp(48px, 7vw, 88px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: end; }
+.protocolo { margin-bottom: 20px; }
+.nome {
+  font: 900 clamp(4.2rem, 13.5vw, 10.5rem)/.86 var(--f-display);
+  font-variation-settings: "wdth" 125; letter-spacing: -.035em;
+  margin-bottom: 28px;
+}
+.nome > span { display: block; animation: sobe .9s cubic-bezier(.2,.8,.2,1) both; }
+.nome > span + span { animation-delay: .12s; }
+.nome .ponto { color: var(--stamp); }
+@keyframes sobe { from { transform: translateY(.35em); clip-path: inset(0 0 100% 0); } to { transform: none; clip-path: inset(0 0 -10% 0); } }
+.lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); max-width: 34ch; color: var(--ink); }
+.lead em { font-style: normal; color: var(--pen); }
+.acoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px;
+  font: 500 .9375rem/1 var(--f-body); text-decoration: none; cursor: pointer;
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 2px;
+  transition: transform .15s, background .15s, color .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.vazado { background: transparent; color: var(--ink); }
+.btn.vazado:hover { background: var(--ink); color: var(--paper); }
+
+/* capa do processo, com a tramitação animada */
+.capa {
+  background: var(--sheet); border: 1px solid var(--line); padding: clamp(20px, 3vw, 28px);
+  position: relative; box-shadow: 0 1px 0 var(--line), 0 18px 40px -28px color-mix(in srgb, var(--ink) 40%, transparent);
+}
+.capa-top { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--line); }
+.capa-top dt { color: var(--muted); }
+.capa-top dd { margin: 0; }
+.tram { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 2px; position: relative; }
+.tram li {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 9px 0; color: var(--muted); transition: color .3s;
+}
+.tram li::before {
+  content: ""; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--line);
+  justify-self: center; transition: background .3s, border-color .3s, box-shadow .3s;
+}
+.tram li .quando { font-family: var(--f-mono); font-size: .75rem; opacity: 0; transition: opacity .3s; }
+.tram li.feito { color: var(--ink); }
+.tram li.feito::before { background: var(--ok); border-color: var(--ok); }
+.tram li.feito .quando { opacity: 1; }
+.tram li.agora { color: var(--ink); }
+.tram li.agora::before { border-color: var(--pen); box-shadow: 0 0 0 5px color-mix(in srgb, var(--pen) 22%, transparent); animation: pulsa 1s ease-in-out infinite; }
+@keyframes pulsa { 50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--pen) 0%, transparent); } }
+.capa .carimbo { position: absolute; right: 18px; bottom: 18px; }
+
+.carimbo {
+  display: inline-block; font: 800 .8rem/1.1 var(--f-display); font-variation-settings: "wdth" 85;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--stamp);
+  border: 2.5px solid var(--stamp); padding: 6px 10px 5px; border-radius: 3px; transform: rotate(-8deg);
+  mix-blend-mode: multiply; opacity: .9;
+  -webkit-mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgba(0,0,0,.75) 61%, #000 75%);
+}
+.carimbo.ok { color: var(--ok); border-color: var(--ok); }
+.carimbo.pen { color: var(--pen); border-color: var(--pen); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .carimbo { mix-blend-mode: normal; } }
+:root[data-theme="dark"] .carimbo { mix-blend-mode: normal; }
+.carimbo.bate { animation: bate .45s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes bate { from { transform: rotate(-20deg) scale(2.2); opacity: 0; } to { transform: rotate(-8deg) scale(1); opacity: .9; } }
+.capa .carimbo:not(.bate) { visibility: hidden; }
+
+/* números do git */
+.fatos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); margin-top: clamp(48px, 7vw, 80px); }
+.fato { padding: 20px 20px 4px 0; display: grid; gap: 4px; }
+.fato + .fato { padding-left: 20px; border-left: 1px solid var(--line); }
+.fato strong { font: 800 clamp(2rem, 4vw, 2.75rem)/1 var(--f-display); font-variation-settings: "wdth" 100; font-variant-numeric: tabular-nums; }
+.fato span { color: var(--muted); font-size: .9375rem; }
+.fonte { margin-top: 14px; }
+
+/* ---------- SAPIENS ---------- */
+.peca {
+  background: var(--sheet); border: 1px solid var(--line); position: relative;
+  padding: clamp(22px, 4vw, 44px);
+}
+.peca-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.peca h3 { font: 900 clamp(2.4rem, 6vw, 4.2rem)/.95 var(--f-display); font-variation-settings: "wdth" 120; letter-spacing: -.02em; }
+.peca .sigla { margin-top: 8px; max-width: 52ch; color: var(--muted); }
+.peca .papel { margin-top: 22px; max-width: 62ch; font-size: 1.125rem; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; list-style: none; padding: 0; }
+.stack li { font-family: var(--f-mono); font-size: .75rem; padding: 3px 8px; border: 1px solid var(--line); border-radius: 2px; color: var(--muted); }
+
+.fluxo-box { margin-top: 32px; border-top: 1px dashed var(--line); padding-top: 24px; }
+.fluxo-box .label { margin-bottom: 12px; }
+.fluxo { overflow-x: auto; }
+.fluxo pre { margin: 0; font: 400 .8125rem/1.35 var(--f-mono); color: var(--muted); width: max-content; }
+.fluxo .n { transition: color .25s, background .25s; }
+.fluxo .n.on { color: var(--pen); font-weight: 500; }
+.fluxo .seta.on { color: var(--stamp); }
+
+.feitos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 32px; list-style: none; padding: 0; }
+.feitos li { padding: 18px 0; border-top: 1px solid var(--line); display: grid; gap: 4px; min-width: 0; }
+.feitos b { font: 700 1.05rem/1.3 var(--f-display); font-variation-settings: "wdth" 100; }
+.feitos span { color: var(--muted); font-size: .96875rem; }
+.aviso { margin-top: 28px; padding: 14px 16px; border-left: 3px solid var(--pen); background: color-mix(in srgb, var(--pen) 6%, transparent); font-size: .9375rem; max-width: 70ch; }
+
+.outras { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 20px; }
+.outras .peca { padding: clamp(20px, 3vw, 30px); display: grid; gap: 10px; align-content: start; transition: transform .2s, box-shadow .2s; }
+.outras .peca:hover { transform: translateY(-3px) rotate(-.25deg); box-shadow: 0 18px 30px -24px color-mix(in srgb, var(--ink) 45%, transparent); }
+.outras h3 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-variation-settings: "wdth" 110; }
+.outras .onde { color: var(--muted); }
+.outras .peca > p:not(.onde) { font-size: 1rem; }
+.outras .carimbo { justify-self: start; margin-top: 6px; }
+
+/* ---------- histórico ---------- */
+.hist { list-style: none; margin: 0; padding: 0; }
+.hist > li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; padding: 28px 0; border-top: 1px solid var(--line); }
+.hist .periodo { font-family: var(--f-mono); font-size: .875rem; color: var(--muted); padding-top: 4px; }
+.hist h3 { font: 800 1.5rem/1.15 var(--f-display); font-variation-settings: "wdth" 108; }
+.hist .org { color: var(--muted); margin-top: 2px; }
+.hist ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 6px; max-width: 70ch; }
+.hist ul li::marker { color: var(--stamp); }
+
+.ferr { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--ink); }
+.ferr h3 { font: 500 .75rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 10px; }
+.ferr ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+/* ---------- formação ---------- */
+.certs { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.certs li {
+  display: grid; grid-template-columns: minmax(0, 1fr) 190px 72px 90px; gap: 20px; align-items: baseline;
+  padding: 16px 0; border-bottom: 1px solid var(--line);
+}
+.certs .curso b { font-weight: 600; }
+.certs .curso small { display: block; color: var(--muted); font-size: .875rem; margin-top: 2px; }
+.certs .inst { color: var(--muted); font-size: .9375rem; }
+.certs .ch, .certs .data { font-family: var(--f-mono); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.certs .ch { text-align: right; }
+.certs .data { color: var(--muted); }
+.certs .tag { font-family: var(--f-mono); font-size: .6875rem; color: var(--pen); border: 1px solid currentColor; padding: 1px 6px; border-radius: 2px; margin-left: 6px; white-space: nowrap; }
+.certs-cab { color: var(--muted); }
+.certs-cab li { border-bottom: 0; padding-bottom: 8px; }
+
+.eventos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
+.eventos h3 { font: 500 .75rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 10px; }
+.eventos ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+
+/* ---------- despacho ---------- */
+.despacho { border-bottom: 0; }
+.desp-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+.desp-texto { font: 800 clamp(2rem, 5.5vw, 4rem)/1 var(--f-display); font-variation-settings: "wdth" 115; letter-spacing: -.015em; }
+.desp-texto em { font-style: normal; color: var(--pen); }
+.desp-sub { margin-top: 20px; max-width: 46ch; color: var(--muted); }
+.contato { display: grid; gap: 14px; }
+.linha { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.linha .label { width: 76px; }
+.linha .val { font-family: var(--f-mono); font-size: .9375rem; user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.copiar { font: 500 .75rem/1 var(--f-mono); background: none; border: 1px solid var(--line); color: var(--muted); padding: 5px 8px; border-radius: 2px; cursor: pointer; margin-left: auto; }
+.copiar:hover { color: var(--ink); border-color: var(--ink); }
+.assina { margin-top: 28px; display: grid; justify-items: start; position: relative; }
+.assina .sig {
+  font: 400 clamp(3rem, 7vw, 4.5rem)/1 var(--f-sign); color: var(--pen);
+  padding-right: 20px; clip-path: inset(0 0 0 0);
+}
+.assina .sig.desenha { animation: escreve 1.6s cubic-bezier(.5,.1,.3,1) both; }
+@keyframes escreve { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.assina .traco { border-top: 1px solid var(--ink); width: min(320px, 100%); padding-top: 6px; }
+.assina .carimbo { position: absolute; left: min(250px, 60%); top: 0; font-size: 1rem; }
+
+footer .wrap { padding-block: 28px 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); }
+
+/* entrada ao rolar: só para o que começa fora da tela */
+.rv.in { animation: entra .7s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes entra { from { transform: translateY(22px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- telas menores ---------- */
+@media (max-width: 900px) {
+  .hero-grid, .desp-grid { grid-template-columns: minmax(0, 1fr); }
+  .fatos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fato:nth-child(3) { padding-left: 0; border-left: 0; }
+  .fato:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .ferr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .outras { grid-template-columns: minmax(0, 1fr); }
+  .certs li { grid-template-columns: minmax(0, 1fr) 72px 90px; }
+  .certs .inst { grid-column: 1; grid-row: 2; margin-top: -12px; }
+  .certs-cab .inst { display: none; }
+}
+@media (max-width: 640px) {
+  .top nav a:not(.cta) { display: none; }
+  .feitos, .outras, .eventos { grid-template-columns: minmax(0, 1fr); }
+  .hist > li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .ferr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .certs li { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; }
+  .certs .ch { grid-column: 2; grid-row: 1; }
+  .certs .data { grid-column: 2; grid-row: 2; text-align: right; }
+  .certs .inst { margin-top: 0; }
+  .certs-cab { display: none; }
+  .capa .carimbo { position: static; margin-top: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .capa .carimbo:not(.bate) { visibility: visible; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">PHCB<span>/</span>2026</a>
+    <nav aria-label="Seções">
+      <a href="#projetos" data-t="nav1">Projetos</a>
+      <a href="#historico" data-t="nav2">Histórico</a>
+      <a href="#formacao" data-t="nav3">Formação</a>
+      <a class="cta" href="#contato" data-t="nav4">Contato</a>
+      <span class="idioma" role="group" aria-label="Idioma / Language">
+        <button type="button" id="lang-pt" lang="pt-BR" aria-pressed="true">PT</button>
+        <button type="button" id="lang-en" lang="en" aria-pressed="false">EN</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- fls. 01 · capa -->
+  <section class="folha hero" id="inicio">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="label protocolo" data-t="proto">Vila Velha – ES · Desenvolvimento full stack · Gestão de projetos</p>
+          <h1 class="nome"><span>Paulo</span><span>Coura<span class="ponto">.</span></span></h1>
+          <p class="lead" data-t="lead">Construo sistemas públicos que movimentam <em>documentos, pagamentos e dados pessoais</em>. Do levantamento de requisitos ao deploy.</p>
+          <div class="acoes">
+            <a class="btn" href="#projetos" data-t="verproj">Ver projetos</a>
+            <a class="btn vazado" href="https://www.linkedin.com/in/paulo-coura-barbosa" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+
+        <aside class="capa" aria-label="Capa do processo">
+          <dl class="capa-top mono">
+            <dt data-t="c1">Processo</dt><dd>2026-PHCB-0001</dd>
+            <dt data-t="c2">Assunto</dt><dd data-t="c2v">Desenvolvimento, liderança e gestão</dd>
+            <dt data-t="c3">Interessado</dt><dd>Paulo Henrique Coura Barbosa</dd>
+          </dl>
+          <ol class="tram" id="tram">
+            <li><span data-t="t1">Requisitos</span> <span class="quando">ok</span></li>
+            <li><span data-t="t2">Modelagem de dados</span> <span class="quando">ok</span></li>
+            <li><span data-t="t3">Back e front-end</span> <span class="quando">ok</span></li>
+            <li><span data-t="t4">Testes automatizados</span> <span class="quando">ok</span></li>
+            <li><span data-t="t5">Produção</span> <span class="quando">ok</span></li>
+          </ol>
+          <span class="carimbo ok" id="carimbo-capa" data-t="emprod">Em produção</span>
+        </aside>
+      </div>
+
+      <div class="fatos">
+        <div class="fato"><strong data-conta="2360">2.360</strong><span data-t="f1">commits no SAPIENS</span></div>
+        <div class="fato"><strong data-conta="1231">1.231</strong><span data-t="f2">testes automatizados</span></div>
+        <div class="fato"><strong data-conta="202">202</strong><span data-t="f3">migrations de banco</span></div>
+        <div class="fato"><strong>2023</strong><span data-t="f4">início no setor público</span></div>
+      </div>
+      <p class="label fonte" data-t="fonte">Contados no Git do SAPIENS em 03/11/2026</p>
+    </div>
+  </section>
+
+  <!-- fls. 02 · projetos -->
+  <section class="folha" id="projetos">
+    <div class="wrap">
+      <div class="folha-head">
+        <h2 data-t="h2a">Peças do processo</h2>
+        <span class="fls"><span data-t="fls">fls.</span> <b>02</b></span>
+      </div>
+
+      <article class="peca rv">
+        <div class="peca-top">
+          <div>
+            <p class="label" data-t="sp0">ICEPi · Secretaria da Saúde do ES · dez/2024 – atual</p>
+            <h3>SAPIENS</h3>
+            <p class="sigla" data-t="sp1">Sistema Administrativo de Pesquisadores da Inovação e Ensino em Saúde</p>
+          </div>
+          <span class="carimbo ok" data-t="emprod">Em produção</span>
+        </div>
+        <p class="papel" data-t="sp2">Sou o principal desenvolvedor desde a primeira migration. O sistema cuida do cadastro das pessoas pesquisadoras dos projetos de saúde do Estado, dos relatórios mensais de atividade e da folha de pagamento das bolsas.</p>
+        <ul class="stack">
+          <li>Laravel</li><li>PHP 8.3</li><li>React</li><li>TypeScript</li><li>Inertia.js</li><li>Tailwind</li><li>Filament</li><li>PostgreSQL</li><li>Docker</li><li>Nginx</li><li>MinIO/S3</li><li>Node.js</li><li>GitLab CI/CD</li>
+        </ul>
+
+        <div class="fluxo-box">
+          <p class="label" data-t="fx">Caminho de um relatório mensal</p>
+          <div class="fluxo" tabindex="0" aria-label="envio, validação, ateste, E-Docs, folha" data-t-aria="fxa">
+<pre aria-hidden="true"><span class="n" data-i="0">┌────────────┐</span>     <span class="n" data-i="1">┌────────────┐</span>     <span class="n" data-i="2">┌────────────┐</span>     <span class="n" data-i="3">┌────────────┐</span>     <span class="n" data-i="4">┌────────────┐</span>
+<span class="n" data-i="0" data-t="b0a">│   envio    │</span><span class="seta" data-i="0">────▶</span><span class="n" data-i="1" data-t="b1a">│ validação  │</span><span class="seta" data-i="1">────▶</span><span class="n" data-i="2" data-t="b2a">│   ateste   │</span><span class="seta" data-i="2">────▶</span><span class="n" data-i="3">│   E-Docs   │</span><span class="seta" data-i="3">────▶</span><span class="n" data-i="4" data-t="b4a">│   folha    │</span>
+<span class="n" data-i="0" data-t="b0b">│pesquisador │</span>     <span class="n" data-i="1" data-t="b1b">│supervisão  │</span>     <span class="n" data-i="2" data-t="b2b">│coordenação │</span>     <span class="n" data-i="3" data-t="b3b">│ assinatura │</span>     <span class="n" data-i="4" data-t="b4b">│ pagamento  │</span>
+<span class="n" data-i="0">└────────────┘</span>     <span class="n" data-i="1">└────────────┘</span>     <span class="n" data-i="2">└────────────┘</span>     <span class="n" data-i="3">└────────────┘</span>     <span class="n" data-i="4">└────────────┘</span></pre>
+          </div>
+        </div>
+
+        <ul class="feitos">
+          <li data-t="d1"><b>Ateste em vários níveis</b><span>Coordenação, Gerência e Direção atestam o relatório, com regras por perfil e escalonamento quando falta responsável.</span></li>
+          <li data-t="d2"><b>Integração com o E-Docs</b><span>Captura, assinatura digital e tramitação dos documentos pela API do sistema de processos do Governo do ES.</span></li>
+          <li data-t="d3"><b>Dados pessoais criptografados</b><span>AES-256 em repouso. O CPF é buscado por hash HMAC e nunca fica em texto aberto no banco. LGPD desde o desenho.</span></li>
+          <li data-t="d4"><b>Login pelo Acesso Cidadão</b><span>OAuth do governo estadual, com lista de CPFs autorizados e perfis de acesso.</span></li>
+          <li data-t="d5"><b>Folha de pagamento das bolsas</b><span>Prévia gravada, folha suplementar no mesmo período e arquivo de pagamento com crédito em conta de qualquer banco.</span></li>
+          <li data-t="d6"><b>Configurável sem deploy</b><span>A equipe monta perfis de acesso e formulários de cadastro versionados direto pela tela.</span></li>
+          <li data-t="d7"><b>API para outros sistemas</b><span>Token por sistema parceiro, permissões por grupo de dados e sincronização incremental.</span></li>
+          <li data-t="d8"><b>Microsserviço de PDF</b><span>Serviço em Node.js que gera os documentos oficiais usados na homologação e no fluxo de relatórios.</span></li>
+        </ul>
+        <p class="aviso" data-t="aviso">O código pertence ao Governo do Espírito Santo, por isso não há link para o repositório. Mostro a arquitetura e as decisões técnicas numa conversa.</p>
+      </article>
+
+      <div class="outras">
+        <article class="peca rv">
+          <p class="label" data-t="o1l">ICEPi · 2025 – atual</p>
+          <h3>iCertifica</h3>
+          <p class="onde" data-t="o1a">Certificação digital</p>
+          <p data-t="o1b">Levantei requisitos e fluxos de certificação, acompanhei os testes de assinatura digital individual e em lote e a integração com a SoluTI. Participo do Colegiado do projeto.</p>
+          <span class="carimbo ok" data-t="o1c">Validado em produção</span>
+        </article>
+        <article class="peca rv">
+          <p class="label" data-t="o2l">SESA · 2025 – atual</p>
+          <h3>e-conselho</h3>
+          <p class="onde" data-t="o2a">Plataforma dos conselhos de saúde</p>
+          <p data-t="o2b">Assumi a plataforma em 2025 e cuido da manutenção. Fiz a migração do banco de dados multi-tenant e montei o ambiente em Docker (PHP-FPM).</p>
+          <span class="carimbo pen" data-t="o2c">Em manutenção</span>
+        </article>
+        <article class="peca rv">
+          <p class="label" data-t="o4l">PRODEST · dez/2023 – dez/2024</p>
+          <h3 data-t="o4h">APIs em .NET</h3>
+          <p class="onde" data-t="o4a">Instituto de Tecnologia do ES</p>
+          <p data-t="o4b">APIs REST em C# com ASP.NET Core e Entity Framework Core, dados em PostgreSQL e SQL Server e integração com front-end em JavaScript. Times em Scrum e Kanban.</p>
+          <span class="carimbo ok" data-t="o4c">Concluído</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- fls. 03 · histórico -->
+  <section class="folha" id="historico">
+    <div class="wrap">
+      <div class="folha-head">
+        <h2 data-t="h2b">Histórico de tramitação</h2>
+        <span class="fls"><span data-t="fls">fls.</span> <b>03</b></span>
+      </div>
+      <ol class="hist">
+        <li class="rv">
+          <p class="periodo" data-t="e1p">dez/2024 – atual</p>
+          <div>
+            <h3 data-t="e1h">Desenvolvedor Full Stack</h3>
+            <p class="org" data-t="e1o">ICEPi, Instituto Capixaba de Ensino, Pesquisa e Inovação em Saúde · bolsa de pesquisa</p>
+            <ul data-t="e1u">
+              <li>Principal desenvolvedor do SAPIENS: modelagem, back-end, front-end, integrações, segurança e documentação.</li>
+              <li>Levantamento de requisitos e priorização com as coordenações, e organização dos testes de aceite com as pessoas usuárias.</li>
+              <li>Dashboards e indicadores com exportação para Excel.</li>
+              <li>Ponte técnica com GTI, ProticSUS, PRODEST e as coordenações do ICEPi e da SESA.</li>
+              <li>Atas, memórias de reunião e material de transferência tecnológica.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="rv">
+          <p class="periodo" data-t="e2p">dez/2023 – dez/2024</p>
+          <div>
+            <h3 data-t="e2h">Estagiário em Desenvolvimento de Software</h3>
+            <p class="org" data-t="e2o">PRODEST, Instituto de Tecnologia da Informação e Comunicação do ES</p>
+            <ul data-t="e2u">
+              <li>APIs REST em C#, ASP.NET Core e Entity Framework Core.</li>
+              <li>PostgreSQL e SQL Server, integração com front-end em JavaScript.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+
+      <div class="ferr rv">
+        <div><h3>Back-end</h3><ul><li>PHP · Laravel</li><li>C# · ASP.NET Core</li><li>Entity Framework Core</li><li>Node.js</li><li>APIs REST</li></ul></div>
+        <div><h3>Front-end</h3><ul><li>React</li><li>TypeScript</li><li>Inertia.js</li><li>Tailwind CSS</li><li>Filament</li></ul></div>
+        <div><h3 data-t="k3">Dados</h3><ul><li>PostgreSQL</li><li>SQL Server</li><li>Oracle</li><li>R · Python</li><li>Power BI</li></ul></div>
+        <div><h3>Infra</h3><ul><li>Docker</li><li>Nginx</li><li>GitLab CI/CD</li><li>MinIO/S3</li></ul></div>
+        <div><h3 data-t="k5">Gestão</h3><ul data-t="k5u"><li>Gestão de projetos</li><li>Scrum · Kanban</li><li>Requisitos e homologação</li><li>LGPD</li><li>Lei 14.133/2021</li><li>Inglês avançado</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- fls. 04 · formação -->
+  <section class="folha" id="formacao">
+    <div class="wrap">
+      <div class="folha-head">
+        <h2 data-t="h2c">Certidões</h2>
+        <span class="fls"><span data-t="fls">fls.</span> <b>04</b></span>
+      </div>
+      <ul class="certs certs-cab label" aria-hidden="true">
+        <li data-t="cab"><span>Curso</span><span class="inst">Instituição</span><span class="ch">Carga</span><span>Conclusão</span></li>
+      </ul>
+      <ul class="certs rv">
+        <li><span class="curso" data-t="q1"><b>Pós em Governança de TI, Segurança Digital e Gestão de Dados</b><span class="tag">em andamento</span></span><span class="inst">PUCPR</span><span class="ch">360 h</span><span class="data" data-t="m1">dez/2026</span></li>
+        <li><span class="curso" data-t="q2"><b>MBA em Gestão de Projetos e Processos em TI</b></span><span class="inst">Unopar Anhanguera</span><span class="ch">360 h</span><span class="data" data-t="m2">jul/2026</span></li>
+        <li><span class="curso" data-t="q3"><b>Bacharelado em Sistemas de Informação</b></span><span class="inst">UniSales</span><span class="ch" data-t="h3">3.000 h</span><span class="data" data-t="m3">dez/2024</span></li>
+        <li><span class="curso" data-t="q4"><b>Análise de Dados para a Qualificação em Gestão da Saúde</b><small>R, estatística, séries temporais, painéis em Quarto</small></span><span class="inst">ICEPi / ESPES</span><span class="ch">80 h</span><span class="data" data-t="m4">mai/2025</span></li>
+        <li><span class="curso" data-t="q5"><b>Oficina Descomplica: Linguagem Simples</b><small>Hierarquia da informação, escrita para o cidadão</small></span><span class="inst">ESESP</span><span class="ch">16 h</span><span class="data" data-t="m5">set/2025</span></li>
+        <li><span class="curso" data-t="q6"><b><a href="https://ude.my/UC-aa93e6d8-3660-4c5b-917c-63566bcb1b33" target="_blank" rel="noopener">C# Essencial (LINQ, .NET 7 e .NET 8)</a></b></span><span class="inst">Udemy</span><span class="ch">41 h</span><span class="data" data-t="m6">ago/2024</span></li>
+        <li><span class="curso" data-t="q7"><b><a href="https://ude.my/UC-0a1a895e-0eb4-45a0-ad2e-4c1b6cec0a80" target="_blank" rel="noopener">SQL para Análise de Dados</a></b></span><span class="inst">Udemy</span><span class="ch" data-t="h7">6,5 h</span><span class="data" data-t="m6">ago/2024</span></li>
+        <li><span class="curso" data-t="q8"><b>EF SET English Certificate</b><small>Nível C1, inglês avançado</small></span><span class="inst">EF</span><span class="ch">65/100</span><span class="data" data-t="m8">set/2021</span></li>
+      </ul>
+
+      <div class="eventos rv">
+        <div><h3 data-t="v1">Expositor</h3><ul><li>Conexão Ciência ES · 2025</li><li>ES Startup Experience (ESX) · 2025</li></ul></div>
+        <div><h3 data-t="v2">Palestrante e apoio</h3><ul data-t="v2u"><li>Workshop de Power BI para Iniciantes · 2024</li><li>Oficina de Scrum · 2025</li></ul></div>
+        <div><h3 data-t="v3">Participante</h3><ul><li>Tech GovES · 2024 e 2025</li><li>InovaWeek · 2025</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- fls. 05 · despacho -->
+  <section class="folha despacho" id="contato">
+    <div class="wrap">
+      <div class="folha-head">
+        <h2 data-t="h2d">Despacho</h2>
+        <span class="fls"><span data-t="fls">fls.</span> <b>05</b></span>
+      </div>
+      <div class="desp-grid">
+        <div>
+          <p class="desp-texto" data-t="dsp1">Encaminhe-se à pessoa recrutadora <em>para conversa.</em></p>
+          <p class="desp-sub" data-t="dsp2">Aberto a vagas de desenvolvimento, liderança técnica, gestão de produto e gestão de projetos.</p>
+        </div>
+        <div class="contato">
+          <div class="linha"><span class="label">E-mail</span><span class="val" id="email">paulohenriquebarbosa.pb@gmail.com</span><button class="copiar" type="button" id="copiar" data-t="copiar">copiar</button></div>
+          <div class="linha"><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/paulo-coura-barbosa" target="_blank" rel="noopener">in/paulo-coura-barbosa</a></div>
+          <div class="assina">
+            <span class="sig" id="sig">Paulo Coura</span>
+            <span class="traco label" data-t="assin">Assinado eletronicamente</span>
+            <span class="carimbo" id="carimbo-apto" data-t="defer">Deferido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>Paulo Henrique Coura Barbosa · Vila Velha – ES</span>
+    <span data-t="rodape">Feito à mão, sem framework.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- idioma: o HTML é a versão PT; EN substitui o conteúdo de cada [data-t] ----------
+  const EN = {
+    nav1: 'Projects', nav2: 'History', nav3: 'Education', nav4: 'Contact',
+    proto: 'Vila Velha, Brazil · Full stack development · Project management',
+    lead: 'I build public-sector systems that move <em>documents, payments and personal data</em>. From requirements to deploy.',
+    verproj: 'See projects',
+    c1: 'Case file', c2: 'Subject', c2v: 'Development, leadership and management', c3: 'Applicant',
+    t1: 'Requirements', t2: 'Data modeling', t3: 'Back end and front end', t4: 'Automated tests', t5: 'Production',
+    emprod: 'In production',
+    f1: 'commits on SAPIENS', f2: 'automated tests', f3: 'database migrations', f4: 'start in the public sector',
+    fonte: 'Counted from the SAPIENS Git history on Nov 3, 2026',
+    h2a: 'Exhibits', fls: 'p.',
+    sp0: 'ICEPi · Espírito Santo State Health Department · Dec 2024 – present',
+    sp1: 'Administrative System for Researchers in Health Innovation and Education',
+    sp2: 'Lead developer since the first migration. The system manages the researchers enrolled in the state’s health projects, their monthly activity reports and the payroll for their research grants.',
+    fx: 'How a monthly report moves through the system',
+    b0a: '│   submit   │', b1a: '│   review   │', b2a: '│  sign-off  │', b4a: '│  payroll   │',
+    b0b: '│ researcher │', b1b: '│ supervisor │', b2b: '│coordinator │', b3b: '│ signature  │', b4b: '│  payment   │',
+    d1: '<b>Multi-level sign-off</b><span>Coordinators, managers and directors sign off each report, with per-role rules and escalation when a project has no one in charge.</span>',
+    d2: '<b>E-Docs integration</b><span>Capture, digital signature and routing of documents through the API of the state government’s official records system.</span>',
+    d3: '<b>Encrypted personal data</b><span>AES-256 at rest. Tax IDs are looked up by HMAC hash and never stored in plain text. Privacy law (LGPD) compliance by design.</span>',
+    d4: '<b>Government single sign-on</b><span>OAuth with the state’s citizen login, an allowlist of authorized users and role-based access.</span>',
+    d5: '<b>Grant payroll</b><span>Saved payroll preview, supplementary payroll for the same period and a payment file that pays out to accounts at any bank.</span>',
+    d6: '<b>Configurable without a deploy</b><span>The team builds access profiles and versioned registration forms straight from the admin screens.</span>',
+    d7: '<b>API for partner systems</b><span>One token per partner system, permissions per data group and incremental sync.</span>',
+    d8: '<b>PDF microservice</b><span>Node.js service that generates the official documents used in approval and reporting workflows.</span>',
+    aviso: 'The code belongs to the Government of Espírito Santo, so there is no repository link. I’m happy to walk through the architecture and technical decisions in a conversation.',
+    o1l: 'ICEPi · 2025 – present', o1a: 'Digital certificates',
+    o1b: 'Gathered requirements and certification flows, followed the individual and batch digital signature tests and the integration with SoluTI. Member of the project’s steering committee.',
+    o1c: 'Validated in production',
+    o2l: 'SESA · 2025 – present', o2a: 'Platform for the state health councils',
+    o2b: 'I took over the platform in 2025 and maintain it. I migrated its multi-tenant database and set up the Docker (PHP-FPM) environment.',
+    o2c: 'Under maintenance',
+    o4l: 'PRODEST · Dec 2023 – Dec 2024', o4h: '.NET APIs', o4a: 'Espírito Santo State IT Agency',
+    o4b: 'REST APIs in C# with ASP.NET Core and Entity Framework Core, PostgreSQL and SQL Server data and JavaScript front-end integration. Scrum and Kanban teams.',
+    o4c: 'Completed',
+    h2b: 'Career history',
+    e1p: 'Dec 2024 – present', e1h: 'Full Stack Developer',
+    e1o: 'ICEPi, Espírito Santo Institute for Health Education, Research and Innovation · research grant',
+    e1u: '<li>Lead developer of SAPIENS: data modeling, back end, front end, integrations, security and documentation.</li><li>Requirements gathering and prioritization with coordinators, and organization of user acceptance testing.</li><li>Dashboards and indicators with Excel export.</li><li>Technical liaison with the state IT teams (GTI, ProticSUS, PRODEST) and ICEPi and SESA coordinators.</li><li>Meeting minutes, records of decisions and technology transfer material.</li>',
+    e2p: 'Dec 2023 – Dec 2024', e2h: 'Software Development Intern',
+    e2o: 'PRODEST, Espírito Santo State Information and Communication Technology Agency',
+    e2u: '<li>REST APIs in C#, ASP.NET Core and Entity Framework Core.</li><li>PostgreSQL and SQL Server, JavaScript front-end integration.</li>',
+    k3: 'Data', k5: 'Management',
+    k5u: '<li>Project management</li><li>Scrum · Kanban</li><li>Requirements and UAT</li><li>LGPD (Brazil’s GDPR)</li><li>Public procurement law</li><li>Advanced English</li>',
+    h2c: 'Education',
+    cab: '<span>Course</span><span class="inst">Institution</span><span class="ch">Hours</span><span>Completed</span>',
+    q1: '<b>Postgraduate degree in IT Governance, Digital Security and Data Management</b><span class="tag">in progress</span>',
+    q2: '<b>MBA in IT Project and Process Management</b>',
+    q3: '<b>B.Sc. in Information Systems</b>',
+    q4: '<b>Data Analysis for Health Management</b><small>R, statistics, time series, Quarto dashboards</small>',
+    q5: '<b>Plain Language Workshop</b><small>Information hierarchy, writing for citizens</small>',
+    q6: '<b><a href="https://ude.my/UC-aa93e6d8-3660-4c5b-917c-63566bcb1b33" target="_blank" rel="noopener">Essential C# (LINQ, .NET 7 and .NET 8)</a></b>',
+    q7: '<b><a href="https://ude.my/UC-0a1a895e-0eb4-45a0-ad2e-4c1b6cec0a80" target="_blank" rel="noopener">SQL for Data Analysis</a></b>',
+    q8: '<b>EF SET English Certificate</b><small>C1 level, advanced English</small>',
+    m8: 'Sep 2021', h3: '3,000 h',
+    m1: 'Dec 2026', m2: 'Jul 2026', m3: 'Dec 2024', m4: 'May 2025', m5: 'Sep 2025', m6: 'Aug 2024', h7: '6.5 h',
+    v1: 'Exhibitor', v2: 'Speaker and support', v3: 'Attendee',
+    v2u: '<li>Power BI for Beginners Workshop · 2024</li><li>Scrum Workshop · 2025</li>',
+    h2d: 'Dispatch',
+    dsp1: 'Forward to the recruiter <em>for a conversation.</em>',
+    dsp2: 'Open to roles in software development, tech leadership, product management and project management.',
+    copiar: 'copy', copiado: 'copied', selecionado: 'selected',
+    assin: 'Signed electronically', defer: 'Approved',
+    rodape: 'Handmade, no framework.',
+    fxa: 'submit, review, sign-off, E-Docs, payroll'
+  };
+  const PT = { copiado: 'copiado', selecionado: 'selecionado' };
+  const marcados = [...document.querySelectorAll('[data-t]')];
+  marcados.forEach(el => { PT[el.dataset.t] ??= el.innerHTML; });
+  const fluxo = document.querySelector('[data-t-aria]');
+  PT.fxa = fluxo.getAttribute('aria-label');
+
+  let lang = 'pt';
+  const t = k => (lang === 'en' ? EN : PT)[k] ?? PT[k];
+  const fmt = n => n.toLocaleString(lang === 'en' ? 'en-US' : 'pt-BR');
+  const btnPt = document.getElementById('lang-pt'), btnEn = document.getElementById('lang-en');
+  const setLang = l => {
+    lang = l;
+    document.documentElement.lang = l === 'en' ? 'en' : 'pt-BR';
+    marcados.forEach(el => { el.innerHTML = t(el.dataset.t); });
+    fluxo.setAttribute('aria-label', t('fxa'));
+    document.querySelectorAll('[data-conta]').forEach(el => { el.textContent = fmt(+el.dataset.conta); });
+    btnPt.setAttribute('aria-pressed', l === 'pt');
+    btnEn.setAttribute('aria-pressed', l === 'en');
+    try { localStorage.setItem('lang', l); } catch {}
+  };
+  btnPt.addEventListener('click', () => setLang('pt'));
+  btnEn.addEventListener('click', () => setLang('en'));
+  // link com #en abre direto em inglês; senão vale a última escolha da pessoa
+  let salvo = null;
+  try { salvo = localStorage.getItem('lang'); } catch {}
+  const inicial = location.hash === '#en' ? 'en' : location.hash === '#pt' ? 'pt' : salvo;
+  if (inicial === 'en') setLang('en');
+
+  // tramitação da capa: cada etapa acende, carimba e recomeça
+  const etapas = [...document.querySelectorAll('#tram li')];
+  const carimbo = document.getElementById('carimbo-capa');
+  if (calmo) {
+    etapas.forEach(li => li.classList.add('feito'));
+    carimbo.classList.add('bate');
+  } else {
+    let i = 0;
+    const passo = () => {
+      if (i < etapas.length) {
+        etapas.forEach((li, k) => { li.classList.toggle('feito', k < i); li.classList.toggle('agora', k === i); });
+        i++; setTimeout(passo, 900);
+      } else {
+        etapas.forEach(li => { li.classList.remove('agora'); li.classList.add('feito'); });
+        carimbo.classList.add('bate');
+        setTimeout(() => { carimbo.classList.remove('bate'); etapas.forEach(li => li.classList.remove('feito')); i = 0; passo(); }, 4200);
+      }
+    };
+    setTimeout(passo, 700);
+  }
+
+  // fluxo ASCII do SAPIENS: o relatório anda de caixa em caixa
+  const nos = [...document.querySelectorAll('.fluxo .n')];
+  const setas = [...document.querySelectorAll('.fluxo .seta')];
+  let f = 0;
+  const anda = () => {
+    nos.forEach(n => n.classList.toggle('on', +n.dataset.i === f));
+    setas.forEach(s => s.classList.toggle('on', +s.dataset.i === f - 1));
+    f = (f + 1) % 5;
+  };
+  anda();
+  if (!calmo) setInterval(anda, 1100);
+
+  // entrada ao rolar só para o que começa fora da tela; o resto já está visível
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('.carimbo').forEach(c => { if (c.id !== 'carimbo-capa') c.classList.add('bate'); });
+    if (e.target.id === 'contato') {
+      document.getElementById('sig').classList.add('desenha');
+      setTimeout(() => document.getElementById('carimbo-apto').classList.add('bate'), 1500);
+    }
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  if (!calmo) {
+    document.querySelectorAll('.rv, #contato').forEach(el => {
+      if (el.getBoundingClientRect().top > innerHeight) io.observe(el);
+    });
+  }
+
+  // contadores do git sobem até o valor real
+  if (!calmo) document.querySelectorAll('[data-conta]').forEach(el => {
+    const alvo = +el.dataset.conta, t0 = performance.now(), dur = 1400;
+    const tick = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = fmt(Math.round(alvo * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+
+  // copiar e-mail
+  const btn = document.getElementById('copiar');
+  btn.addEventListener('click', async () => {
+    const txt = document.getElementById('email').textContent;
+    try { await navigator.clipboard.writeText(txt); btn.textContent = t('copiado'); }
+    catch { getSelection().selectAllChildren(document.getElementById('email')); btn.textContent = t('selecionado'); }
+    setTimeout(() => btn.textContent = t('copiar'), 2000);
+  });
+})();
+</script>
+</body>
+</html>
